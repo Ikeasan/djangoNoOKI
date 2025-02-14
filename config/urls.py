@@ -22,5 +22,6 @@ urlpatterns = [
     path('accounts/login/', views.login_view, name='login'),  # 追加
     path('main/', views.main_view, name='main'),  # メイン画面のURL
     path('create/', views.create_post, name='create_post'),  # 投稿作成画面のURL
-
+    path('add_comment/<uuid:post_id>/', views.add_comment, name='add_comment'),  # コメント追加画面のURL
+    
 ]

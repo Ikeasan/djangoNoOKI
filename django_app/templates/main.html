@@ -1,12 +1,43 @@
-<h1>ようこそ、{{ user.username }}さん</h1>
+{% load static %}
 
-<h2>投稿一覧</h2>
-<ul>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投稿一覧</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+    <h1>ようこそ、{{ user.username }}さん</h1>
+
+    <h2>投稿一覧</h2>
     {% for post in posts %}
-        <li>{{ post.title }} - {{ post.created_at }}</li>
-    {% empty %}
-        <li>投稿はありません。</li>
-    {% endfor %}
-</ul>
+        <div class="post">
+            <h3>{{ post.title }} ({{ post.created_at }})</h3>
+            <p>{{ post.content }}</p>
+            
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="Post image" />
+            {% endif %}
+            
+            <h4>コメント:</h4>
+            <ul>
+                {% for comment in post.comments.all %}
+                    <li>
+                        <strong>{{ comment.author.username }}</strong>: {{ comment.content }} ({{ comment.created_at }})
+                    </li>
+                {% empty %}
+                    <li>まだコメントはありません。</li>
+                {% endfor %}
+            </ul>
 
-<a href="{% url 'create_post' %}">新しい投稿を作成</a>
+            <a href="{% url 'add_comment' post.id %}">コメントを追加</a>
+        </div>
+    {% empty %}
+        <p>投稿はありません。</p>
+    {% endfor %}
+
+    <a href="{% url 'create_post' %}">新しい投稿を作成</a>
+</body>
+</html>

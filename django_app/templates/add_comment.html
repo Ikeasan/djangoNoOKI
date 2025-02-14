@@ -1,0 +1,9 @@
+<h2>{{ post.title }} のコメント</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">コメントを投稿</button>
+</form>
+
+<a href="{% url 'main' %}">戻る</a>

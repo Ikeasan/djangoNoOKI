@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm
-from .models import Post
+from .forms import PostForm, CommentForm
+from .models import Post, Comment
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -25,7 +25,37 @@ def login_view(request):
 def main_view(request):
     # ユーザーが作成した投稿を取得
     posts = Post.objects.filter(author=request.user)
+    
+    # 各投稿に対応するコメントを取得
+    for post in posts:
+      post.comments = Comment.objects.filter(post=post)
     return render(request, 'main.html', {'posts': posts})
+
+
+
+
+@login_required
+def add_comment(request, post_id):
+  post = Post.objects.get(id=post_id)
+    
+  if request.method == 'POST':
+      form = CommentForm(request.POST)
+      if form.is_valid():
+          comment = form.save(commit=False)
+          comment.author = request.user  # コメントの投稿者を設定
+          comment.post = post  # コメントがどの投稿に関連するか設定
+          comment.save()
+          return redirect('main')  # コメント投稿後、メイン画面にリダイレクト
+  else:
+      form = CommentForm()
+    
+  return render(request, 'add_comment.html', {'form': form, 'post': post})
+
+
+
+
+
+
 
 # 投稿を作成するビュー
 @login_required
