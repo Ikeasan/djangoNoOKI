@@ -1,0 +1,10 @@
+<!-- create_post.html -->
+<h1>投稿作成</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">投稿を作成</button>
+</form>
+
+<a href="{% url 'main' %}">戻る</a>

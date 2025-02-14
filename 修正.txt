@@ -1,0 +1,70 @@
+--------------------------------<views.py>------------------------------------------
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login as auth_login
+from django.views import View
+from .forms import PostForm, CommentForm
+
+
+
+def login(request):
+    return render(request, 'login.html')
+
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            auth_login(request, user)  # ユーザーをログイン
+            return redirect('main')  # メイン画面に遷移
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
+  
+  
+def main_view(request):
+    return render(request, 'main.html')
+  
+  
+  
+  
+# ---------------------------(1)-----------------------------
+class PostCreateView(View):
+  def get(self, request):
+    form = PostForm()
+    return render(request, 'main.html', {'form': form})
+  
+  # htmlで<form method="POST">としたためpostメソッドを利用。
+  def post(self, request):
+    form = PostForm(request.POST)
+    if form.is_valid():
+      form.save()
+      return redirect('main2')
+    # バリデーションに失敗したら入力画面に戻る処理
+    return render(request, "main", {'form': form})
+  
+# ---------------------------(2)-----------------------------
+
+  
+  
+
+
+
+
+from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('main')  # ログイン後に遷移するページ
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
+      
+
