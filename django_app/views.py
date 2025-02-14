@@ -25,12 +25,9 @@ def login_view(request):
 def main_view(request):
     # ユーザーが作成した投稿を取得
     posts = Post.objects.filter(author=request.user)
-    
-    # 各投稿に対応するコメントを取得
-    for post in posts:
-      post.comments = Comment.objects.filter(post=post)
-    return render(request, 'main.html', {'posts': posts})
 
+    # そのままpostsをテンプレートに渡す
+    return render(request, 'main.html', {'posts': posts})
 
 
 
@@ -45,6 +42,7 @@ def add_comment(request, post_id):
           comment.author = request.user  # コメントの投稿者を設定
           comment.post = post  # コメントがどの投稿に関連するか設定
           comment.save()
+          post.comments.add(comment)  # コメントを投稿に追加
           return redirect('main')  # コメント投稿後、メイン画面にリダイレクト
   else:
       form = CommentForm()
