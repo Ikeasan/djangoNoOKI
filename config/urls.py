@@ -18,8 +18,10 @@ from django.urls import path
 from django_app import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/login/', views.login_view, name='login'),  # 追加
+    path('',views.login_view,name='start'),#初期ページ
+    path('admin/', admin.site.urls),#開発者
+    path('accounts/login/', views.login_view, name='login'),  # ログイン
+    path('accounts/signup/',views.signup, name='signup'),
     path('main/', views.main_view, name='main'),  # メイン画面のURL
     path('create/', views.create_post, name='create_post'),  # 投稿作成画面のURL
     path('add_comment/<uuid:post_id>/', views.add_comment, name='add_comment'),  # コメント追加画面のURL

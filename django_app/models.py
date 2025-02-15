@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 
+# class User(models.Model):
+#   username = models.CharField(verbose_name='ユーザー名')
+#   password = models.CharField(verbose_name='password')
+
 class Post(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="ID")  # UUIDを主キーに設定
   title = models.CharField(max_length=100, verbose_name="タイトル")  # 投稿のタイトル
