@@ -13,31 +13,26 @@
 
     <h2>投稿一覧</h2>
     {% for post in posts %}
-        <div class="post">
-            <h3>{{ post.title }} ({{ post.created_at }})</h3>
-            <p>{{ post.content }}</p>
-            
-            {% if post.image %}
-                <img src="{{ post.image.url }}" alt="Post image" />
-            {% endif %}
-            
-            <h4>コメント:</h4>
-            <ul>
-                {% for comment in post.comments.all %}
-                    <li>
-                        <strong>{{ comment.author.username }}</strong>: {{ comment.content }} ({{ comment.created_at }})
-                    </li>
-                {% empty %}
-                    <li>まだコメントはありません。</li>
-                {% endfor %}
-            </ul>
+        <div class="post-container">
+            <div class="post">
+                <h3>{{ post.title }}</h3>
+                <p class="author">投稿者: {{ post.author.username }}</p>
+                
+                {% if post.image %}
+                    <div class="post-image">
+                        <img src="{{ post.image.url }}" alt="Post image" />
+                    </div>
+                {% endif %}
+                
+                <p class="created-at">投稿日: {{ post.created_at }}</p>
 
-            <a href="{% url 'add_comment' post.id %}">コメントを追加</a>
+                <a href="{% url 'add_comment' post.id %}" class="comment-button">コメントを追加</a>
+            </div>
         </div>
     {% empty %}
         <p>投稿はありません。</p>
     {% endfor %}
 
-    <a href="{% url 'create_post' %}">新しい投稿を作成</a>
+    <a href="{% url 'create_post' %}" class="create-post-button">新しい投稿を作成</a>
 </body>
 </html>

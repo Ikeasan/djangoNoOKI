@@ -23,30 +23,70 @@ h2 {
   margin-top: 20px;
 }
 
-/* 投稿リスト */
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 20px;
+/* 投稿一覧のコンテナ */
+.post-container {
+  display: flex;
+  flex-wrap: wrap;  /* 横並びにし、幅に余裕がなくなったら次の行に移動 */
+  justify-content: flex-start;  /* 左側に寄せる */
+  gap: 30px;  /* 投稿間の間隔を広げる */
+  padding: 20px;  /* コンテナ内のパディング */
 }
 
-li {
+/* 投稿の個別スタイル */
+.post {
   background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin: 10px;
-  border-radius: 8px;
-  font-size: 1.2em;
+  border: 2px solid #ddd;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
 }
 
-/* 空のリストメッセージ */
-li.empty {
-  font-style: italic;
+.post:hover {
+  transform: scale(1.05);
+}
+
+/* 投稿者名 */
+.author {
+  font-size: 1.1em;
+  color: #5c6bc0;
+  margin: 10px 0;
+}
+
+/* 投稿日時 */
+.created-at {
+  font-size: 0.9em;
   color: #888;
+  margin-bottom: 10px;
 }
 
-/* 新しい投稿リンク */
-a {
+/* 画像のスタイル */
+.post-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* コメント追加ボタン */
+.comment-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #5c6bc0;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.comment-button:hover {
+  background-color: #3f51b5;
+}
+
+/* 新しい投稿作成ボタン */
+.create-post-button {
   display: block;
   width: 200px;
   margin: 30px auto;
@@ -60,6 +100,6 @@ a {
   transition: background-color 0.3s ease;
 }
 
-a:hover {
+.create-post-button:hover {
   background-color: #3f51b5;
 }
