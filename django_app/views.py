@@ -37,7 +37,8 @@ def signup(request):
 @login_required
 def main_view(request):
     # ユーザーが作成した投稿を取得
-    posts = Post.objects.filter(author=request.user)
+    # posts = Post.objects.filter(author=request.user)
+    posts = Post.objects.all()
 
     # そのままpostsをテンプレートに渡す
     return render(request, 'main.html', {'posts': posts})
