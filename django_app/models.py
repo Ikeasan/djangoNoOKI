@@ -1,10 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 import uuid
 
-# class User(models.Model):
-#   username = models.CharField(verbose_name='ユーザー名')
-#   password = models.CharField(verbose_name='password')
+class User(AbstractUser):
+  REQUIRED_FIELDS = []
+  # username = models.CharField(verbose_name='ユーザー名',max_length=50)
+  # password = models.CharField(verbose_name='password',max_length=50)
 
 class Post(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="ID")  # UUIDを主キーに設定

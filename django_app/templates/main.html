@@ -14,11 +14,12 @@
     <h2>投稿一覧</h2>
     {% for post in posts %}
         <div class="post">
+            <h3>{{user.username}}<h3>
             <h3>{{ post.title }} ({{ post.created_at }})</h3>
             <p>{{ post.content }}</p>
             
             {% if post.image %}
-                <img src="{{ post.image.url }}" alt="Post image" />
+                <img src="{{ post.image.url }}" alt="Post image" style="width: 200px; height: auto;">
             {% endif %}
             
             <h4>コメント:</h4>

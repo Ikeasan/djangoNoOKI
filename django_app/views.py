@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm,CustomUserCreationForm
 from .models import Post, Comment
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
@@ -24,13 +24,14 @@ def login_view(request):
 #ユーザー追加
 def signup(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("user_sucess")
-        else:
-            form = UserCreationForm()
-        return render(request, "signup.html",{"form": form})
+            return redirect("main")
+    else:
+        form = CustomUserCreationForm()
+        
+    return render(request, "signup.html",{"form": form})
 
 # ログイン後に遷移するメイン画面のビュー
 @login_required
