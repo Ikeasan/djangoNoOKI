@@ -6,22 +6,22 @@
     <title>Login</title>
     {% load static %}
     <!-- CSSファイルをstaticフォルダから読み込む -->
-    <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'signup.css' %}">
 </head>
 <body>
     <div class="login-container">
         <h2>サインアップ</h2>
-        <form method="post" >
+        <form method="post">
             {% csrf_token %}
             <!-- フォームエラーがある場合、エラーメッセージを表示 -->
             {% if form.errors %}
-              <div class="error-message">
+              <div class="error-message" style="border: solid 3px f00; ">
                   <ul>
-                      {% for field in form %}
+                      {% comment %} {% for field in form %} {% endcomment %}
                           {% for error in field.errors %}
                               <li>{{ error }}</li>
                           {% endfor %}
-                      {% endfor %}
+                      {% comment %} {% endfor %} {% endcomment %}
                   </ul>
               </div>
             {% endif %}

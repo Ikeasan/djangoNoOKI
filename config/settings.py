@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -117,12 +118,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'django_app/static/'
 
 # プロジェクトの静的ファイルディレクトリ
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # プロジェクトのstaticディレクトリ
+    BASE_DIR / "django_app/static",  # プロジェクトのstaticディレクトリ
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 LOGIN_REDIRECT_URL = 'main'  # ログイン後にリダイレクトされるURL
@@ -131,3 +135,5 @@ LOGIN_REDIRECT_URL = 'main'  # ログイン後にリダイレクトされるURL
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = "django_app.User"  # あなたのアプリ名を指定
