@@ -65,10 +65,6 @@ def add_comment(request, post_id):
 
 
 
-
-
-
-
 # 投稿を作成するビュー
 @login_required
 def create_post(request):

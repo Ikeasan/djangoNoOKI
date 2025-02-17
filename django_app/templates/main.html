@@ -14,12 +14,11 @@
     <h2>投稿一覧</h2>
     {% for post in posts %}
         <div class="post">
-            <h3>{{post.author}}さんの投稿<h3>
             <h3>{{ post.title }} ({{ post.created_at }})</h3>
             <p>{{ post.content }}</p>
             
             {% if post.image %}
-                <img src="{{ post.image.url }}" alt="Post image" style="width: 200px; height: auto;">
+                <img src="{{ post.image.url }}" alt="Post image" />
             {% endif %}
             
             <h4>コメント:</h4>
@@ -40,7 +39,5 @@
     {% endfor %}
 
     <a href="{% url 'create_post' %}">新しい投稿を作成</a>
-    <br><br>
-    <a href='/'>ログアウト</a>
 </body>
 </html>
