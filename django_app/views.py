@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .forms import PostForm, CommentForm,CustomUserCreationForm
@@ -78,3 +78,19 @@ def create_post(request):
     else:
         form = PostForm()
     return render(request, 'create_post.html', {'form': form})
+
+
+# 投稿詳細ページ
+@login_required
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, id=post_id)  # 投稿を取得
+    comment_form = CommentForm(request.POST or None)
+
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.author = request.user  # 現在のユーザーをコメントの投稿者に設定
+        comment.post = post  # どの投稿にコメントするか設定
+        comment.save()
+        return redirect('post_detail', post_id=post.id)  # コメント追加後、投稿詳細ページにリダイレクト
+
+    return render(request, 'details.html', {'post': post, 'comment_form': comment_form})

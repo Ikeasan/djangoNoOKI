@@ -28,7 +28,7 @@ urlpatterns = [
     path('main/', views.main_view, name='main'),  # メイン画面のURL
     path('create/', views.create_post, name='create_post'),  # 投稿作成画面のURL
     path('add_comment/<uuid:post_id>/', views.add_comment, name='add_comment'),  # コメント追加画面のURL
-    
+    path('post/<uuid:post_id>/', views.post_detail, name='post_detail'),  # 投稿詳細ページ
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

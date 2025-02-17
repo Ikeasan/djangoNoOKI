@@ -1,6 +1,6 @@
 from django import forms  # formsモジュールは通常ここでインポート
 from django.forms.widgets import Textarea  # Textareaをここでインポート
-from .models import Post, Comment,User
+from .models import Post, Comment, User
 from django.contrib.auth.forms import UserCreationForm 
 
 class CustomUserCreationForm(UserCreationForm): #ユーザー追加

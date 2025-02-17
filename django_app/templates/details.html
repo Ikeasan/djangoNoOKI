@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投稿詳細</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <div class="post-detail">
+        <p><strong>投稿者:</strong> {{ post.author.username }}</p>
+        <p><strong>投稿日:</strong> {{ post.created_at }}</p>
+        
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="Post image" class="post-image">
+        {% endif %}
+        
+        <div class="post-content">
+            <p>{{ post.content }}</p>
+        </div>
+
+        <h2>コメント:</h2>
+        <ul>
+            {% for comment in post.comments.all %}
+                <li>
+                    <strong>{{ comment.author.username }}</strong>: {{ comment.content }} ({{ comment.created_at }})
+                </li>
+            {% empty %}
+                <li>まだコメントはありません。</li>
+            {% endfor %}
+        </ul>
+
+        <h3>コメントを追加:</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">コメントを追加</button>
+        </form>
+        
+        <a href="{% url 'main' %}">戻る</a>
+    </div>
+</body>
+</html>

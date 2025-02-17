@@ -7,96 +7,43 @@ body {
   padding: 0;
 }
 
-img{
-  max-width: 50%;
-}
-
 /* ヘッダー */
-h1 {
+header {
+  background-color: #5c6bc0;
+  padding: 20px 0;
   text-align: center;
+  color: white;
+}
+
+header h1 {
   font-size: 2.5em;
-  color: #333;
-  margin-top: 20px;
-}
-
-/* サブタイトル */
-h2 {
-  font-size: 2em;
-  text-align: center;
-  color: #5cc089;
-  margin-top: 20px;
-}
-
-/* 投稿一覧のコンテナ */
-.post-container {
-  display: flex;
-  flex-wrap: wrap;  /* 横並びにし、幅に余裕がなくなったら次の行に移動 */
-  justify-content: flex-start;  /* 左側に寄せる */
-  gap: 30px;  /* 投稿間の間隔を広げる */
-  padding: 20px;  /* コンテナ内のパディング */
-}
-
-/* 投稿の個別スタイル */
-.post {
-  background-color: #fff;
-  border: 2px solid #ddd;
-  padding: 20px;
-  width: 300px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.post:hover {
-  transform: scale(1.05);
-}
-
-/* 投稿者名 */
-.author {
-  font-size: 1.1em;
-  color: #5c6bc0;
-  margin: 10px 0;
-}
-
-/* 投稿日時 */
-.created-at {
-  font-size: 0.9em;
-  color: #888;
   margin-bottom: 10px;
 }
 
-/* 画像のスタイル */
-.post-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+header nav {
+  margin-top: 10px;
 }
 
-/* コメント追加ボタン */
-.comment-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #5c6bc0;
+header a {
   color: white;
   text-decoration: none;
+  margin: 0 15px;
+  padding: 10px 20px;
   border-radius: 5px;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.comment-button:hover {
   background-color: #3f51b5;
+  font-size: 1.1em;
 }
 
-/* 新しい投稿作成ボタン */
-.create-post-button {
-  display: block;
-  width: 200px;
-  margin: 30px auto;
-  padding: 15px;
-  text-align: center;
-  background-color: #5c6bc0;
+header a:hover {
+  background-color: #1a237e;
+}
+
+
+.create-post-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #2dd249;
   color: white;
   text-decoration: none;
   border-radius: 5px;
@@ -104,6 +51,154 @@ h2 {
   transition: background-color 0.3s ease;
 }
 
-.create-post-button:hover {
+.create-post-btn:hover {
+  background-color: #91cd6a;
+}
+
+.logout-btn {
+  background-color: #ff4081;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  font-size: 1em;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn a {
+  color: white;
+  text-decoration: none;
+}
+
+.logout-btn:hover {
+  background-color: #e91e63;
+}
+
+
+
+
+
+h2 {
+  font-size: 2em;
+  text-align: center; /* これで中央揃え */
+  margin-top: 20px;
+}
+
+
+
+
+/* 投稿リスト */
+.posts-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;  /* 余白を均等にする */
+  margin: 30px;
+}
+
+.post-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: calc(25% - 20px);
+  margin: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+  display: block; /* divをリンクとして表示 */
+  text-decoration: none; /* リンクの下線を削除 */
+}
+
+.post-card:hover {
+  transform: translateY(-10px);
+}
+
+.post-card .post-header h3,
+.post-card .post-content p {
+  color: #333; /* 色を指定 */
+}
+
+.post-card .post-meta {
+  color: #a12323;
+}
+
+.post-content {
+  font-size: 1.1em;
+  margin: 15px 0;
+}
+
+.post-image img {
+  width: 100%;
+  height: 200px;  /* 画像の高さを200pxに統一 */
+  object-fit: cover;  /* 画像が枠に収まるようにトリミング */
+  border-radius: 8px;
+}
+
+.add-comment-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #5c6bc0;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.add-comment-btn:hover {
   background-color: #3f51b5;
+}
+
+/* コメントの表示 */
+.comments h4 {
+  font-size: 1.2em;
+  margin-top: 15px;
+}
+
+.comments ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comments ul li {
+  background-color: #fafafa;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+  font-size: 1.1em;
+}
+
+
+
+/* フッター部分 */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .posts-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .post-card {
+    width: 80%;
+    margin: 10px 0;
+  }
+
+  header a {
+    display: block;
+    margin: 10px 0;
+  }
 }

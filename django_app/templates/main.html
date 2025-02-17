@@ -9,38 +9,43 @@
     <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
 <body>
-    <h1>ようこそ、{{ user.username }}さん</h1>
+    <!-- ヘッダー部分 -->
+    <header>
+        <h1>ようこそ、{{ user.username }}さん</h1>
+        <nav>
+            <a href="{% url 'create_post' %}" class="create-post-btn">新しい投稿を作成</a>
+            <a href="/" class="logout-btn">ログアウト</a>
+        </nav>
+    </header>
 
-    <h2>投稿一覧</h2>
-    {% for post in posts %}
-        <div class="post">
-            <h3>{{ post.title }} ({{ post.created_at }})</h3>
-            <p>{{ post.content }}</p>
-            
-            {% if post.image %}
-                <img src="{{ post.image.url }}" alt="Post image" />
-            {% endif %}
-            
-            <h4>コメント:</h4>
-            <ul>
-                {% for comment in post.comments.all %}
-                    <li>
-                        <strong>{{ comment.author.username }}</strong>: {{ comment.content }} ({{ comment.created_at }})
-                    </li>
-                {% empty %}
-                    <li>まだコメントはありません。</li>
-                {% endfor %}
-            </ul>
-
-            <a href="{% url 'add_comment' post.id %}">コメントを追加</a>
+    <!-- 投稿リスト部分 -->
+    <section>
+        <h2>投稿一覧</h2>
+        <div class="posts-container">
+            {% for post in posts %}
+                <a href="{% url 'post_detail' post.id %}" class="post-card">
+                    <div class="post-header">
+                        <h3>{{ post.title }}</h3>
+                        <p class="post-meta">{{ post.created_at }}<br> 投稿者: {{ post.author.username }}</p>
+                    </div>
+                    {% if post.image %}
+                        <div class="post-image">
+                            <img src="{{ post.image.url }}" alt="Post image" />
+                        </div>
+                    {% endif %}
+                    <div class="post-content">
+                        <p>{{ post.content|truncatewords:20 }}</p>
+                    </div>
+                </a>
+            {% empty %}
+                <p>投稿はありません。</p>
+            {% endfor %}
         </div>
-    {% empty %}
-        <p>投稿はありません。</p>
-    {% endfor %}
+    </section>
 
-    <a href="{% url 'create_post' %}">新しい投稿を作成</a>
-
-
-    <button type="submit"><a href='/'>ログアウト</a></button>
+    <!-- フッター部分 -->
+    <footer>
+        <p>&copy; 2025 BANDAI NAMCO</p>
+    </footer>
 </body>
 </html>
