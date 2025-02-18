@@ -1,0 +1,14 @@
+p,h1,h2{
+    text-align: center;
+}
+
+li{
+    text-align: center;
+    list-style: none;
+}
+
+.post-image,a,button {
+    display: block;
+    margin: 20px auto;
+    max-width: 40%;
+}
