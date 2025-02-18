@@ -23,19 +23,12 @@ class Post(models.Model):
 
 
   def delete(self, *args, **kwargs):
+        # 画像が存在する場合は削除
         if self.image:
-            image_path = self.image.path
-            print(f"Attempting to delete image at: {image_path}")  # 画像ファイルのパスを出力
-            try:
-              if os.path.isfile(image_path):
-                  print(f"Image deleted: {image_path}") 
-                  os.remove(image_path)  # 画像ファイルを削除
-                  print(f"Image deleted: {image_path}")  # 削除後の確認
-              else:
-                  print(f"Image file not found: {image_path}")  # ファイルが見つからない場合
-            except Exception as e:
-              print(f"Error deleting file {image_path}: {e}")  # エラーの表示
-        super().delete(*args, **kwargs)  # 親クラスのdeleteメソッドを呼び出してデータベースから削除
+            # ファイルの削除
+            if os.path.isfile(self.image.path):
+                os.remove(self.image.path)
+        super().delete(*args, **kwargs)  # 投稿をデータベースから削除
   
   
 class Comment(models.Model):
