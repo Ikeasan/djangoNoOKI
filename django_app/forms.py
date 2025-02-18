@@ -15,7 +15,7 @@ class PostForm(forms.ModelForm):
         fields = ['title', 'content', 'is_published', 'image']  # ユーザーが入力する項目
         widgets = {
             'content': Textarea(attrs={'rows': 5, 'cols': 40}),  # Textareaを直接使用
-            'is_published': forms.CheckboxInput(),  # 公開/非公開のフラグをチェックボックスで表示
+            'is_published': forms.CheckboxInput({'class': 'checkbox-inline'}),  # 公開/非公開のフラグをチェックボックスで表示
         }
         labels = {
             'title': 'タイトル',
