@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import uuid
+import os
 
 class User(AbstractUser):
   REQUIRED_FIELDS = []
@@ -20,6 +21,23 @@ class Post(models.Model):
   def __str__(self):
     return self.title
 
+
+  def delete(self, *args, **kwargs):
+        if self.image:
+            image_path = self.image.path
+            print(f"Attempting to delete image at: {image_path}")  # 画像ファイルのパスを出力
+            try:
+              if os.path.isfile(image_path):
+                  print(f"Image deleted: {image_path}") 
+                  os.remove(image_path)  # 画像ファイルを削除
+                  print(f"Image deleted: {image_path}")  # 削除後の確認
+              else:
+                  print(f"Image file not found: {image_path}")  # ファイルが見つからない場合
+            except Exception as e:
+              print(f"Error deleting file {image_path}: {e}")  # エラーの表示
+        super().delete(*args, **kwargs)  # 親クラスのdeleteメソッドを呼び出してデータベースから削除
+  
+  
 class Comment(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="ID")  # UUIDを主キーに設定
   post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', verbose_name="関連する投稿")  # 関連する投稿
