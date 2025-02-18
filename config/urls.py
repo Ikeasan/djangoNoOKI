@@ -29,6 +29,7 @@ urlpatterns = [
     path('create/', views.create_post, name='create_post'),  # 投稿作成画面のURL
     path('add_comment/<uuid:post_id>/', views.add_comment, name='add_comment'),  # コメント追加画面のURL
     path('post/<uuid:post_id>/', views.post_detail, name='post_detail'),  # 投稿詳細ページ
+    path('post/<uuid:post_id>/delete/', views.post_delete, name='post_delete'),  #
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -94,3 +94,10 @@ def post_detail(request, post_id):
         return redirect('post_detail', post_id=post.id)  # コメント追加後、投稿詳細ページにリダイレクト
 
     return render(request, 'details.html', {'post': post, 'comment_form': comment_form})
+
+
+#データベースの内容 削除方法
+def post_delete(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.delete()
+    return redirect(('main'))
