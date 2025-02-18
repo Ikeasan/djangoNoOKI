@@ -1,10 +1,24 @@
-<!-- create_post.html -->
-<h1>投稿作成</h1>
+{% load static %}
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">投稿を作成</button>
-</form>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投稿作成</title>
+    <link rel="stylesheet" href="{% static 'create_post.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>投稿作成</h1>
 
-<a href="{% url 'main' %}">戻る</a>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">投稿を作成</button>
+        </form>
+
+        <a href="{% url 'main' %}">戻る</a>
+    </div>
+</body>
+</html>
