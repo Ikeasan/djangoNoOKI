@@ -42,10 +42,34 @@
             {% endfor %}
         </div>
     </section>
+    <div class="bar">
+        <video autoplay loop  muted style="position: relative;; animation: slide 10s linear infinite; overflow: hidden;">
+            <source src="{% get_media_prefix %}videos/pacman.mp4" type="video/mp4">
+            お使いのブラウザでは動画を再生できません。
+        </video>
+        
+        <style>
+            html, body {
+                overflow-x: hidden;  /* 横方向のスクロールバーを隠す */
+            }
+        
+            @keyframes slide {
+                0% { left: -300px; }   /* 動画を画面の左外に配置 */
+                50% { left: 100%; }     /* 動画が画面右外に出る */
+                51% { left: -876765px; }   /* 動画が瞬時に左端に戻る */
+                100% { left: -300px; }  /* 動画を再度左外に配置 */
+            }
 
+            video {
+                /* 動画がスクリーン外に出るのを制御 */
+                position: absolute;
+            }
+        </style>        
+    </div>
     <!-- フッター部分 -->
     <footer>
         <p>&copy; 2025 BANDAI NAMCO</p>
     </footer>
 </body>
 </html>
+{% comment %} <source src="{% get_media_prefix %}videos/pacman.mp4" type="video/mp4"> {% endcomment %}

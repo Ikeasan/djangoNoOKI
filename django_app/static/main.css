@@ -184,6 +184,17 @@ footer p {
   font-size: 1.1em;
 }
 
+div.bar{
+  padding: 5px;
+  background-color: #000;
+  border: solid 3px #000;
+
+}
+
+video {
+  max-width: 100px;
+  margin: 0 auto;
+}
 
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
