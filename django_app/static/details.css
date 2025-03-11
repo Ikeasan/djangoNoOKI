@@ -1,14 +1,152 @@
-p,h1,h2{
-    text-align: center;
-}
-
-li{
-    text-align: center;
-    list-style: none;
-}
-
-.post-image,a,button {
+/* 全体のフォントと背景色の設定 */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* 中央寄せでコンテンツを表示 */
+  .post-detail {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* タイトル */
+  h1 {
+    font-size: 2.5em;
+    color: #5c6bc0;
+    margin-bottom: 20px;
+  }
+  
+  /* 投稿者・投稿日 */
+  .post-detail p {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  /* 投稿内容 */
+  .post-content p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #444;
+  }
+  
+  /* 画像のスタイリング */
+  .post-image {
     display: block;
+    max-width: 80%;
     margin: 20px auto;
-    max-width: 40%;
-}
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .post-image:hover {
+    transform: scale(1.05);  /* 画像にホバーエフェクト */
+  }
+  
+  /* コメントセクション */
+  h2 {
+    font-size: 2em;
+    color: #5c6bc0;
+    margin-top: 40px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  ul li {
+    background-color: #f0f0f0;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1.1em;
+  }
+  
+  ul li strong {
+    color: #3f51b5; /* コメントの投稿者名を強調 */
+  }
+  
+  ul li .created-at {
+    font-size: 0.9em;
+    color: #999;
+    margin-top: 5px;
+  }
+  
+  /* コメントフォーム */
+  form {
+    margin-top: 30px;
+  }
+  
+  form button {
+    background-color: #5c6bc0;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+  }
+  
+  form button:hover {
+    background-color: #3f51b5;
+  }
+  
+  /* リンクボタンのデザイン */
+  a {
+    display: inline-block;
+    background-color: #ff4081;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  a:hover {
+    background-color: #e91e63;
+  }
+  
+  a:first-child {
+    margin-right: 20px; /* 戻るリンクと削除リンクの間隔調整 */
+  }
+  
+  /* レスポンシブデザイン */
+  @media (max-width: 768px) {
+    .post-detail {
+      margin: 20px;
+      padding: 15px;
+    }
+  
+    .post-image {
+      max-width: 100%;
+    }
+  
+    form button {
+      font-size: 1.1em;
+      padding: 12px 20px;
+    }
+  
+    a {
+      font-size: 1em;
+      padding: 8px 16px;
+    }
+  }
+  
