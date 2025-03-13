@@ -56,7 +56,6 @@ def add_comment(request, post_id):
           comment.author = request.user  # コメントの投稿者を設定
           comment.post = post  # コメントがどの投稿に関連するか設定
           comment.save()
-          post.comments.add(comment)  # コメントを投稿に追加
           return redirect('main')  # コメント投稿後、メイン画面にリダイレクト
   else:
       form = CommentForm()

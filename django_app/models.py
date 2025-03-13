@@ -17,18 +17,40 @@ class Post(models.Model):
   author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts', verbose_name="投稿者")  # 投稿者 (ユーザー)
   is_published = models.BooleanField(default=True, verbose_name="公開/非公開フラグ")  # 公開/非公開フラグ
   image = models.ImageField(upload_to='posts/', null=True, blank=True, verbose_name="画像追加")  # 画像を追加
+  audio = models.FileField(upload_to='audio/',null=True,blank=True,verbose_name="BGM")  # メディアフォルダ内のaudio/に保存
     
   def __str__(self):
     return self.title
 
 
+  # def delete(self, *args, **kwargs):
+  #       # 画像が存在する場合は削除
+  #       if self.image:
+  #           # ファイルの削除
+  #           if os.path.isfile(self.image.path):
+  #               os.remove(self.image.path)
+  #       super().delete(*args, **kwargs)  # 投稿をデータベースから削除
+  
   def delete(self, *args, **kwargs):
-        # 画像が存在する場合は削除
-        if self.image:
-            # ファイルの削除
+    # 画像ファイルの削除
+    if self.image:
+        try:
             if os.path.isfile(self.image.path):
                 os.remove(self.image.path)
-        super().delete(*args, **kwargs)  # 投稿をデータベースから削除
+        except Exception as e:
+            print(f"画像削除エラー: {e}")  # ログを記録しておく
+
+    # 音楽ファイルの削除
+    if self.audio:
+        try:
+            print(f"削除する音楽のパス: {self.audio.path}")  # パス確認
+            self.audio.close()  # ← これを追加！
+            if os.path.isfile(self.audio.path):
+                os.remove(self.audio.path)
+        except Exception as e:
+            print(f"音楽削除エラー: {e}")
+
+    super().delete(*args, **kwargs)
   
   
 class Comment(models.Model):

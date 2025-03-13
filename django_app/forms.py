@@ -12,7 +12,7 @@ class CustomUserCreationForm(UserCreationForm): #ユーザー追加
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'is_published', 'image']  # ユーザーが入力する項目
+        fields = ['title', 'content', 'is_published', 'image','audio']  # ユーザーが入力する項目
         widgets = {
             'content': Textarea(attrs={'rows': 5, 'cols': 40}),  # Textareaを直接使用
             'is_published': forms.CheckboxInput({'class': 'checkbox-inline'}),  # 公開/非公開のフラグをチェックボックスで表示
@@ -22,6 +22,7 @@ class PostForm(forms.ModelForm):
             'content': '本文',
             'is_published': '公開/非公開フラグ',
             'image': '画像追加',
+            'audio':'BGM'
         }
 
 class CommentForm(forms.ModelForm):

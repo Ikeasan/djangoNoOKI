@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="{% static 'details.css' %}">
 </head>
 <body>
-    <h1>{{ post.title }}</h1>
     <div class="post-detail">
+        <h1>{{ post.title }}</h1>
         <p><strong>投稿者:</strong> {{ post.author.username }}</p>
         <p><strong>投稿日:</strong> {{ post.created_at }}</p>
         
@@ -22,11 +22,30 @@
             <p>{{ post.content }}</p>
         </div>
 
+        <p>BGM: {{ post.audio }}</p>
+        <label>音量: </label>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.1">
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const audio = document.getElementById("audioPlayer");
+                const volumeSlider = document.getElementById("volumeSlider");
+        
+                audio.volume = volumeSlider.value; // 初期音量を設定
+        
+                volumeSlider.addEventListener("input", function() {
+                    console.log("スライダーの値: ", this.value); // デバッグ用
+                    audio.volume = this.value;
+                });
+            });
+        </script>
+
         <h2>コメント:</h2>
         <ul>
             {% for comment in post.comments.all %}
                 <li>
-                    <strong>{{ comment.author.username }}</strong>: {{ comment.content }} ({{ comment.created_at }})
+                    <strong>{{ comment.author.username }}</strong>: {{ comment.content }}
+                    <span class="created-at">({{ comment.created_at }})</span>
                 </li>
             {% empty %}
                 <li>まだコメントはありません。</li>
@@ -43,5 +62,15 @@
         <a href="{% url 'main' %}">戻る</a>
         <a href="{% url 'post_delete' post_id=post.id %}">削除</a>
     </div>
+    {% if post.audio %}
+    <audio id="audioPlayer" autoplay loop >
+        <source src="{{ post.audio.url }}" type="audio/mp3">
+        <source src="{{ post.audio.url }}" type="audio/flac">
+        <source src="{{ post.audio.url }}" type="audio/wav">
+    </audio>
+    {% endif %}
+
+
+
 </body>
 </html>
