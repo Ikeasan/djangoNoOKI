@@ -31,25 +31,21 @@ class Post(models.Model):
   #               os.remove(self.image.path)
   #       super().delete(*args, **kwargs)  # 投稿をデータベースから削除
   
-  def delete(self, *args, **kwargs):
+def delete(self, *args, **kwargs):
     # 画像ファイルの削除
-    if self.image:
-        try:
-            if os.path.isfile(self.image.path):
-                os.remove(self.image.path)
-        except Exception as e:
-            print(f"画像削除エラー: {e}")  # ログを記録しておく
+    if self.image and os.path.isfile(self.image.path):
+        os.remove(self.image.path)
 
     # 音楽ファイルの削除
-    if self.audio:
+    if self.audio and os.path.isfile(self.audio.path):
         try:
-            print(f"削除する音楽のパス: {self.audio.path}")  # パス確認
-            self.audio.close()  # ← これを追加！
-            if os.path.isfile(self.audio.path):
-                os.remove(self.audio.path)
+            with open(self.audio.path, 'rb') as f:  # 明示的に開いて閉じる
+                pass  # 何もしない
+            os.remove(self.audio.path)  # 削除
         except Exception as e:
-            print(f"音楽削除エラー: {e}")
+            print(f"音楽ファイル削除エラー: {e}")
 
+    # 投稿自体を削除
     super().delete(*args, **kwargs)
   
   

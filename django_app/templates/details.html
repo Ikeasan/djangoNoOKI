@@ -22,6 +22,15 @@
             <p>{{ post.content }}</p>
         </div>
 
+        {% if post.audio %}
+        <audio id="audioPlayer" autoplay loop >
+            <source src="{{ post.audio.url }}" type="audio/mp3">
+            <source src="{{ post.audio.url }}" type="audio/flac">
+            <source src="{{ post.audio.url }}" type="audio/wav">
+        </audio>
+        
+    
+
         <p>BGM: {{ post.audio }}</p>
         <label>音量: </label>
         <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.1">
@@ -39,6 +48,8 @@
                 });
             });
         </script>
+
+        {% endif %}
 
         <h2>コメント:</h2>
         <ul>
@@ -62,13 +73,6 @@
         <a href="{% url 'main' %}">戻る</a>
         <a href="{% url 'post_delete' post_id=post.id %}">削除</a>
     </div>
-    {% if post.audio %}
-    <audio id="audioPlayer" autoplay loop >
-        <source src="{{ post.audio.url }}" type="audio/mp3">
-        <source src="{{ post.audio.url }}" type="audio/flac">
-        <source src="{{ post.audio.url }}" type="audio/wav">
-    </audio>
-    {% endif %}
 
 
 
