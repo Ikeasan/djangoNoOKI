@@ -22,7 +22,7 @@ class PostForm(forms.ModelForm):
             'content': '本文',
             'is_published': '公開/非公開フラグ',
             'image': '画像追加',
-            'audio':'BGM'
+            'audio':'BGM (mp3ファイルのみ対応しています)'
         }
 
 class CommentForm(forms.ModelForm):

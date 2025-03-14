@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import FileExtensionValidator
 import uuid
 import os
 
@@ -17,7 +18,8 @@ class Post(models.Model):
   author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts', verbose_name="投稿者")  # 投稿者 (ユーザー)
   is_published = models.BooleanField(default=True, verbose_name="公開/非公開フラグ")  # 公開/非公開フラグ
   image = models.ImageField(upload_to='posts/', null=True, blank=True, verbose_name="画像追加")  # 画像を追加
-  audio = models.FileField(upload_to='audio/',null=True,blank=True,verbose_name="BGM")  # メディアフォルダ内のaudio/に保存
+  audio = models.FileField(upload_to='audio/',null=True,blank=True,verbose_name="BGM",
+                           validators=[FileExtensionValidator(allowed_extensions=['mp3'])])  # メディアフォルダ内のaudio/に保存
     
   def __str__(self):
     return self.title
@@ -31,21 +33,23 @@ class Post(models.Model):
   #               os.remove(self.image.path)
   #       super().delete(*args, **kwargs)  # 投稿をデータベースから削除
   
-def delete(self, *args, **kwargs):
+  def delete(self, *args, **kwargs):
     # 画像ファイルの削除
-    if self.image and os.path.isfile(self.image.path):
-        os.remove(self.image.path)
+    if self.image:
+            if os.path.isfile(self.image.path):
+                os.remove(self.image.path)
+
 
     # 音楽ファイルの削除
-    if self.audio and os.path.isfile(self.audio.path):
+    if self.audio:
         try:
-            with open(self.audio.path, 'rb') as f:  # 明示的に開いて閉じる
-                pass  # 何もしない
-            os.remove(self.audio.path)  # 削除
+            print(f"削除する音楽のパス: {self.audio.path}")  # パス確認
+            self.audio.close()  # ← これを追加！
+            if os.path.isfile(self.audio.path):
+                os.remove(self.audio.path)
         except Exception as e:
-            print(f"音楽ファイル削除エラー: {e}")
+            print(f"音楽削除エラー: {e}")
 
-    # 投稿自体を削除
     super().delete(*args, **kwargs)
   
   

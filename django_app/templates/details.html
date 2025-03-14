@@ -25,11 +25,7 @@
         {% if post.audio %}
         <audio id="audioPlayer" autoplay loop >
             <source src="{{ post.audio.url }}" type="audio/mp3">
-            <source src="{{ post.audio.url }}" type="audio/flac">
-            <source src="{{ post.audio.url }}" type="audio/wav">
         </audio>
-        
-    
 
         <p>BGM: {{ post.audio }}</p>
         <label>音量: </label>
